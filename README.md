@@ -23,10 +23,10 @@
 - файл __Vagrantfile__ - содрежит описание создания виртуальной машины на Ubuntu 22.04. На этой виртуальной машине в дальнейшем будем запускать docker-контейнеры
 - файл __provision.yml__ - плейбук для Ansible, с помощью которого устанавливается Docker и отдается команда на запуск docker контейнеров
 - каталог __project__ - содрежит необходимые файлы для запуска docker-контейнеров
-- каталог __project/nginx-conf__ - конфигурационные файлы nginx с описанием настройки веб серверов для django, nodejs и wordpress
+- каталог __project/nginx-conf__ - конфигурационные файлы nginx для обработки запросов к django, nodejs и wordpress
 - каталог __project/node__ - содержит файл с настройками для node.js
 - каталог __project/python__ - содержит файлы с настройками Django приложения
-- файл __project/docker-compose.yml__ - содержит описание запуска наших docker-контейнеров
+- файл __project/docker-compose.yml__ - содержит описание запуска docker-контейнеров
 - файл __.env__ - содержит список переменных, которые используются при создании контейнеров
 
 После развёртнывания стенда имеем виртуальную машину с именем __DynamicWeb__, на которой хостятся 5 докер контейнеров:
@@ -40,7 +40,9 @@ d5da71a14523   mariadb:10.8.2               "docker-entrypoint.s…"   5 hours a
 a8d382592ac5   node:16.13.2-alpine3.15      "docker-entrypoint.s…"   5 hours ago   Up 5 hours                                                                           node
 ```
 
-Веб-сервер nginx принимает запросы по tcp портам 8081-8083, и проксирует их на сервера wordpress, node, project_app (django). В качестве базы данных для Wordpress используется MariaDB.
+Веб-сервер nginx принимает запросы по tcp портам 8081-8083, и проксирует их на сервера wordpress, node, project_app (django). Статика wordpress не проксируется, обрабатывается самим nginx.
+
+В качестве базы данных для Wordpress используется MariaDB.
 
 #### Проверка: 
 ![image](https://github.com/user-attachments/assets/87e6944e-fa9f-4408-b60d-31f7bd02e5df)
